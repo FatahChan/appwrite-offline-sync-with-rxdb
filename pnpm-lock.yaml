@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@tanstack/react-query':
+    specifier: ^5.59.13
+    version: 5.59.13(react@18.3.1)
   appwrite:
     specifier: ^16.0.2
     version: 16.0.2
@@ -17,9 +20,6 @@ dependencies:
   rxdb:
     specifier: ^15.34.1
     version: 15.34.1(rxjs@7.8.1)
-  rxdb-hooks:
-    specifier: ^5.0.2
-    version: 5.0.2(react-dom@18.3.1)(react@18.3.1)(rxdb@15.34.1)(rxjs@7.8.1)
   rxjs:
     specifier: ^7.8.1
     version: 7.8.1
@@ -1283,6 +1283,19 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@tanstack/query-core@5.59.13:
+    resolution: {integrity: sha512-Oou0bBu/P8+oYjXsJQ11j+gcpLAMpqW42UlokQYEz4dE7+hOtVO9rVuolJKgEccqzvyFzqX4/zZWY+R/v1wVsQ==}
+    dev: false
+
+  /@tanstack/react-query@5.59.13(react@18.3.1):
+    resolution: {integrity: sha512-GB2ELtiH8tL0rcFiM4sWvnXhazt1xRXX/LolMEV12kfEKu58aNA4lQoieslP61PO4vZO9JJMwm+6lqyS0E1HOA==}
+    peerDependencies:
+      react: ^18 || ^19
+    dependencies:
+      '@tanstack/query-core': 5.59.13
+      react: 18.3.1
+    dev: false
 
   /@types/babel__core@7.20.5:
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -2880,20 +2893,6 @@ packages:
     dependencies:
       queue-microtask: 1.2.3
     dev: true
-
-  /rxdb-hooks@5.0.2(react-dom@18.3.1)(react@18.3.1)(rxdb@15.34.1)(rxjs@7.8.1):
-    resolution: {integrity: sha512-ID+moqoAYCc7u0zQwPLRZKeaKK3G+WVhRMTHddbvOBWSTuIA+7q22Xma40TPi5asrPyJiiwd2TZ8qxwdlHXNmw==}
-    peerDependencies:
-      react: '>=16.8'
-      react-dom: '>=16.8'
-      rxdb: '>=14'
-      rxjs: '>=7.5.4'
-    dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      rxdb: 15.34.1(rxjs@7.8.1)
-      rxjs: 7.8.1
-    dev: false
 
   /rxdb@15.34.1(rxjs@7.8.1):
     resolution: {integrity: sha512-5LeVUEVhutDNetD4zNiK+mNqSMNBoRbZnoU0xHBMSC8Lmet5Xlsuif/HwX+/7GrSXn8XhbW8yLHYxnVllhCSZA==}

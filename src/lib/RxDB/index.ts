@@ -1,21 +1,22 @@
 import { addRxPlugin, createRxDatabase, RxDatabase, WithDeleted } from "rxdb";
 import { RxDBQueryBuilderPlugin } from "rxdb/plugins/query-builder";
-import { getRxStorageDexie } from "rxdb/plugins/storage-dexie";
-import { Collections, schemas, RxDbTodoDocType } from "./schema";
 import { replicateRxCollection } from "rxdb/plugins/replication";
+import { getRxStorageDexie } from "rxdb/plugins/storage-dexie";
 import { RxDBUpdatePlugin } from "rxdb/plugins/update";
+import { Collections, RxDbTodoDocType, schemas } from "./schema";
 
+import { Query } from "appwrite";
 import {
   APPWRITE_COLLECTION_TODO,
   APPWRITE_DATABASE,
   databases,
 } from "../appwrite";
-import { ID, Query } from "appwrite";
+import { AppwriteTodoDocType } from "../appwrite/schema";
+import { getAllAccessPermissions } from "../appwrite/utils";
 import {
   convertAppwriteDocToRxDbDoc,
   convertRxDocToAppwriteDoc,
 } from "../utils";
-import { AppwriteTodoDocType } from "../appwrite/schema";
 
 let db: RxDatabase<Collections>;
 async function initDB() {
@@ -87,23 +88,42 @@ export function initReplication() {
       handler: async (changedRows) => {
         const conflicts: WithDeleted<RxDbTodoDocType>[] = [];
         for (const changedRow of changedRows) {
-          const realMasterState =
-            await databases.getDocument<AppwriteTodoDocType>(
+          let realMasterState: AppwriteTodoDocType | null;
+          try {
+            realMasterState = await databases.getDocument<AppwriteTodoDocType>(
               APPWRITE_DATABASE,
               APPWRITE_COLLECTION_TODO,
               changedRow.newDocumentState.id
             );
-
+          } catch {
+            realMasterState = null;
+          }
           const isDeleted = changedRow.newDocumentState._deleted;
           if (!realMasterState && isDeleted) {
             continue;
           }
           if (!realMasterState) {
+            const appwriteAllAccessPermissions =
+              await getAllAccessPermissions();
+            const newDoc = convertRxDocToAppwriteDoc(
+              changedRow.newDocumentState
+            );
+
             await databases.createDocument<AppwriteTodoDocType>(
               APPWRITE_DATABASE,
               APPWRITE_COLLECTION_TODO,
-              ID.unique(),
-              convertRxDocToAppwriteDoc(changedRow.newDocumentState)
+              newDoc.$id,
+              {
+                ...convertRxDocToAppwriteDoc(changedRow.newDocumentState),
+                $id: undefined,
+                $collectionId: undefined,
+                $databaseId: undefined,
+                $permissions: undefined,
+                $createdAt: undefined,
+                $updatedAt: undefined,
+                _deleted: undefined,
+              },
+              appwriteAllAccessPermissions
             );
             continue;
           }

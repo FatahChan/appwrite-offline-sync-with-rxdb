@@ -2,14 +2,17 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import { UserProvider } from "./context/user/provider.tsx";
-import { RxDBProvider } from "./context/RxDB/provider.tsx";
+import TanStackQueryProvider from "./context/TanStackQuery/provider.tsx";
+import { RxDbProvider } from "./context/RxDb/provider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <UserProvider>
-      <RxDBProvider>
-        <App />
-      </RxDBProvider>
+      <TanStackQueryProvider>
+        <RxDbProvider>
+          <App />
+        </RxDbProvider>
+      </TanStackQueryProvider>
     </UserProvider>
   </StrictMode>
 );

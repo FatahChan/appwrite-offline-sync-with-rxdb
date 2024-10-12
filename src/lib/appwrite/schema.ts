@@ -16,8 +16,8 @@ export type AppwriteDocType = z.infer<typeof appwriteDocumentSchema>;
 
 const todoDocumentSchema = appwriteDocumentSchema.extend({
   $collectionId: z.string().default(APPWRITE_COLLECTION_TODO),
-  title: z.string(),
-  completed: z.boolean(),
+  title: z.string().min(1),
+  completed: z.boolean().default(false),
 });
 
 export type AppwriteTodoDocType = z.infer<typeof todoDocumentSchema>;

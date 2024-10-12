@@ -1,15 +1,21 @@
-import { PropsWithChildren, useEffect, useState } from "react";
-import initDB from "../../lib/RxDB";
+import { useQuery } from "@tanstack/react-query";
+import { createContext, PropsWithChildren } from "react";
 import { RxDatabase } from "rxdb";
+import initDB from "../../lib/RxDB";
 import { Collections } from "../../lib/RxDB/schema";
-import { Provider } from "rxdb-hooks";
 
-export function RxDBProvider(props: PropsWithChildren) {
-  const [db, setDb] = useState<RxDatabase<Collections>>();
+const RxDbContext = createContext<RxDatabase<Collections> | undefined>(
+  undefined
+);
 
-  useEffect(() => {
-    initDB().then(setDb);
-  }, []);
-
-  return Provider<Collections>({ db, children: props.children });
+function RxDbProvider({ children }: PropsWithChildren) {
+  const { data: db } = useQuery({
+    queryKey: ["db"],
+    queryFn: async () => {
+      return await initDB();
+    },
+  });
+  return <RxDbContext.Provider value={db}>{children}</RxDbContext.Provider>;
 }
+
+export { RxDbContext, RxDbProvider };
