@@ -100,4 +100,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [RxDB](https://rxdb.info/) for providing a powerful database solution.
 - [Appwrite](https://appwrite.io/) for backend services and user authentication.
 - [React](https://reactjs.org/) for building user interfaces.
-- [React Query](https://react-query.tanstack.com/) for data fetching and caching.
+- [React Query](https://tanstack.com/query/) for data fetching and caching.
