@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "appwrite:login": "appwrite login --endpoint https://cloud.appwrite.io/v1",
+    "appwrite:project:init": "appwrite init project",
+    "appwrite:project:push": "appwrite push all"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.59.13",
@@ -23,6 +26,7 @@
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.2",
+    "appwrite-cli": "^6.0.0",
     "eslint": "^9.11.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.12",

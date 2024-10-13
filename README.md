@@ -9,7 +9,6 @@ This is a simple Todo application built with React, utilizing RxDB for local dat
 - **User Authentication**: Users can register and log in to manage their tasks.
 - **Real-time Sync**: The app synchronizes data with a remote database using Appwrite and RxDB.
 - **Offline Support**: Users can continue to add and manage tasks even when offline. Changes will sync automatically when the connection is restored.
-- **Responsive Design**: The app is designed to be responsive and user-friendly.
 
 ## Technologies Used
 
@@ -17,7 +16,6 @@ This is a simple Todo application built with React, utilizing RxDB for local dat
 - **RxDB**: A NoSQL database for JavaScript applications that supports real-time data synchronization.
 - **Appwrite**: A backend server for web and mobile developers that provides a set of APIs for user authentication, database management, and more.
 - **React Query**: A library for fetching, caching, and updating data in React applications.
-- **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript.
 
 ## Getting Started
 
@@ -32,54 +30,47 @@ This is a simple Todo application built with React, utilizing RxDB for local dat
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/todo-app.git
-   cd todo-app
+   git clone https://github.com/FatahChan/appwrite-offline-sync-with-rxdb.git
+   cd appwrite-offline-sync-with-rxdb
    ```
 
 2. Install the dependencies:
 
    ```bash
-   npm install
-   # or
-   yarn install
+   pnpm install
    ```
 
 3. Set up Appwrite:
 
-   - Create a new project in your Appwrite console.
-   - Set up a database and create a collection for your todos.
-   - Configure authentication methods (e.g., email/password).
-   - Update the Appwrite endpoint and project ID in your application configuration.
+   - Login to appwrite
+
+   ```bash
+   pnpm appwrite:login
+   ```
+
+   - Init appwrite project
+
+   ```bash
+   pnpm appwrite:project:init
+   ```
+
+   - Push project setting
+
+   ```bash
+   pnpm appwrite:project:push
+   ```
+
+   - Open Appwrite console.
+   - Add a platform and allow `localhost`
+   - Create `.env` file, copy the template, and fill in the missing env variable from `appwrite.json`
 
 4. Start the development server:
 
    ```bash
-   npm start
-   # or
-   yarn start
+   pnpm dev
    ```
 
-5. Open your browser and navigate to `http://localhost:3000`.
-
-## Usage
-
-- **Adding a Task**: Enter a task in the input field and click "Add". The task will be stored locally and synced with Appwrite when online.
-- **Deleting a Task**: Click the "Delete" button next to the task you want to remove.
-- **User Authentication**: Use the login form to authenticate. You can register a new user by checking the "Register" checkbox.
-- **Offline Sync**: The app allows users to add and manage tasks while offline. When the device reconnects to the internet, any changes made while offline will automatically sync with the Appwrite server.
-
-## Folder Structure
-
-```
-/src
-  ├── /components        # React components
-  ├── /context           # Context providers for state management
-  ├── /lib               # Utility functions and schemas
-  ├── /hooks             # Custom hooks
-  ├── /styles            # CSS styles (if any)
-  ├── App.tsx           # Main application component
-  └── index.tsx         # Entry point of the application
-```
+5. Open your browser and navigate to `http://localhost:5137`.
 
 ## Contributing
 
