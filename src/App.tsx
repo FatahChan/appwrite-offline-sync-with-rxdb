@@ -167,7 +167,8 @@ function Table() {
 
 function TodoRow({ initialTodo }: { initialTodo: RxDbTodoDocType }) {
   const db = useRxDb();
-  const { data: todo } = useQuery({
+  const { data: todo }: { data: RxDbTodoDocType | null } = useQuery({
+    // Explicitly define the type for 'todo'
     queryKey: ["todos", initialTodo.id],
     initialData: initialTodo,
     queryFn: async () => {
