@@ -158,7 +158,7 @@ function Table() {
           </tr>
         ) : null}
         {todos?.map((todo) => (
-          <TodoRow key={todo.id} initialTodo={todo} />
+          <TodoRow key={todo.id} initialTodo={todo as RxDbTodoDocType} />
         ))}
       </tbody>
     </table>
